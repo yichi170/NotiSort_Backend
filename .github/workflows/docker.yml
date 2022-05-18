@@ -36,8 +36,8 @@ jobs:
       fail-fast: false
 
     steps:
-    - uses: appleboy/ssh-action@v0.1.4
     - name: Deploy project to Google Compute Engine
+      uses: appleboy/ssh-action@v0.1.4
       with:
         host: ${{ secrets.HOST }}
         USERNAME: ${{ secrets.USERNAME }}

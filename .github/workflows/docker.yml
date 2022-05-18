@@ -1,0 +1,29 @@
+name: Docker Compose CI
+
+on:
+  push:
+    paths:
+      - 'model/**'
+      - '.github/workflows/docker.yml'
+  pull_request:
+    paths:
+      - 'model/**'
+      - '.github/workflows/docker.yml'
+
+jobs:
+
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, ubuntu-18.04]
+
+      fail-fast: false
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run the docker compose
+      run: |
+        cd model/
+        docker-compose up -d

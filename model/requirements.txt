@@ -1,4 +1,8 @@
-numpy==1.21.4
-Flask==2.0.2
 fastapi==0.78.0
+Flask==2.1.2
+keras==2.9.0
+numpy==1.22.3
+tensorflow==2.9.0
+transformers==4.19.2
 uvicorn==0.17.6
+torch

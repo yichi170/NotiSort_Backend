@@ -23,7 +23,7 @@ services:
         container_name: model_container
         volumes:
             - ./:/app
-        command: python3 /app/app.py
+        command: python3 /app/server_fastapi.py
         networks:
             docker-network:
                 aliases:

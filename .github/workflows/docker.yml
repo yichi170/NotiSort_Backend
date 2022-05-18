@@ -1,4 +1,4 @@
-name: Docker Compose CI
+name: Model in Docker
 
 on:
   push:
@@ -12,13 +12,12 @@ on:
 
 jobs:
 
-  build:
+  ci:
     runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
         os: [ubuntu-latest, ubuntu-18.04]
-
       fail-fast: false
 
     steps:
@@ -27,3 +26,24 @@ jobs:
       run: |
         cd model/
         docker-compose up -d
+        
+  cd:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, ubuntu-18.04]
+      fail-fast: false
+
+    steps:
+    - uses: appleboy/ssh-action@v0.1.4
+    - name: Deploy project to Google Compute Engine
+      with:
+        host: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        KEY: ${{ secrets.SSHKEY }}
+        script: |
+          cd NotiSort_Backend/
+          git pull https://github.com/yichi170/NotiSort_Backend.git
+          cd model/
+          docker-compose up --build -d

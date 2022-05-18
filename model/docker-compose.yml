@@ -1,25 +1,35 @@
-version: "3"
+version: "3.7"
 
 services:
-  nginx:
-    image: nginx:latest
-    container_name: nginx_container
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      # - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - fastapi
+    nginx:
+        image: nginx:latest
+        container_name: nginx_container
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+        networks:
+            - docker-network
+        ports:
+            - "80:80"
+            - "443:443"
+        depends_on:
+            - model
 
-  fastapi:    
-    # build the fastapi service using Dockerfile in ./app
-    # build: ./app
-    build:
-      context: ./app
-      dockerfile: Dockerfile
-    container_name: fastapi_container
-    command: gunicorn --bind 0.0.0.0:5000 server-fastapi:app --worker-class uvicorn.workers.UvicornWorker
-    ports:
-      - "5000:5000"
+    model:    
+        # build the fastapi service using Dockerfile in ./app
+        # build: ./app
+        build:
+        context: ./
+        dockerfile: Dockerfile
+        container_name: model_container
+        volumes:
+            - ./:/app
+        command: python3 ./app/app.py
+        networks:
+            docker-network:
+                aliases:
+                    - model
+        ports:
+            - 5000:5000
+
+networks:
+    docker-network:

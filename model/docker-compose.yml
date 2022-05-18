@@ -7,7 +7,6 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
       # - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    # restart: always
     ports:
       - "80:80"
       - "443:443"
@@ -20,7 +19,7 @@ services:
     build:
       context: ./app
       dockerfile: Dockerfile
-    container_name: fastapi
-    # restart: always
+    container_name: fastapi_container
+    command: gunicorn --bind 0.0.0.0:5000 server-fastapi:app --worker-class uvicorn.workers.UvicornWorker
     ports:
       - "5000:5000"

@@ -18,12 +18,12 @@ services:
         # build the fastapi service using Dockerfile in ./app
         # build: ./app
         build:
-        context: ./
-        dockerfile: Dockerfile
+            context: ./
+            dockerfile: Dockerfile
         container_name: model_container
         volumes:
             - ./:/app
-        command: python3 ./app/app.py
+        command: python3 /app/app.py
         networks:
             docker-network:
                 aliases:

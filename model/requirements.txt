@@ -1,7 +1,4 @@
 numpy==1.21.4
 Flask==2.0.2
 fastapi==0.78.0
-keras==2.9.0
-tensorflow==2.9.0
-transformers==4.19.2
 uvicorn==0.17.6

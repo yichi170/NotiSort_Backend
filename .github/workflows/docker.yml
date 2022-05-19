@@ -33,6 +33,7 @@ jobs:
     - name: Test with pytest
       run: |
         cd model/
+        pip3 install -r requirements.txt
         pip install pytest requests "fastapi[all]"
         py.test
         

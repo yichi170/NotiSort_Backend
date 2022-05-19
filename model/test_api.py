@@ -14,7 +14,6 @@ input = {"data": [["app1", "title1", "content1", "category", 10000, 1],
 
 def test_model():
     # res = requests.post(url, data=json.dumps(input, ensure_ascii=False))
-
     res = client.post("/", json=input)
     assert res.status_code == 200
     #assert res.text == '"[2, 3, 1]"'

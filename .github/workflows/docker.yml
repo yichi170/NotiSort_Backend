@@ -26,16 +26,16 @@ jobs:
       run: |
         cd model/
         docker-compose up -d
-    - name: Install Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-    - name: Test with pytest
-      run: |
-        cd model/
-        pip3 install -r requirements.txt
-        pip install pytest requests "fastapi[all]"
-        py.test
+    # - name: Install Python 3.8
+    #   uses: actions/setup-python@v2
+    #   with:
+    #     python-version: 3.8
+    # - name: Test with pytest
+    #   run: |
+    #     cd model/
+    #     pip3 install -r requirements.txt
+    #     pip install pytest requests "fastapi[all]"
+    #     py.test
         
   cd:
     runs-on: ${{ matrix.os }}

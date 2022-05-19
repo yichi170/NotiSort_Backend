@@ -116,13 +116,13 @@ async def upload_noti(json_noti: dict = Body(...)):
 
 model = None
 
-#if __name__ == '__main__':
+if __name__ == '__main__':
 
-print("Num GPUs Available: ", len(tensorflow.config.list_physical_devices('GPU')))
-tokenizer = AutoTokenizer.from_pretrained('bert-base-chinese')
-embedding = AutoModel.from_pretrained('bert-base-chinese')
+    print("Num GPUs Available: ", len(tensorflow.config.list_physical_devices('GPU')))
+    tokenizer = AutoTokenizer.from_pretrained('bert-base-chinese')
+    embedding = AutoModel.from_pretrained('bert-base-chinese')
 
-os.system('clear') 
+    os.system('clear') 
 
-model = load_model("model_1.h5")
-uvicorn.run(app, host=HOST, port=PORT)
+    model = load_model("model_1.h5")
+    uvicorn.run(app, host=HOST, port=PORT)

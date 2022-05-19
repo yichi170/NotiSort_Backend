@@ -27,9 +27,9 @@ jobs:
         cd model/
         docker-compose up -d
     - name: Install Python 3.8
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
     - name: Test with pytest
       run: |
         cd model/

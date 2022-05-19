@@ -2,6 +2,10 @@ import requests
 import pytest
 import json
 import re
+from fastapi.testclient import TestClient
+from server_fastapi import *
+
+client = TestClient(app)
 
 url = "http://35.187.156.127"
 input = {"data": [["app1", "title1", "content1", "category", 10000, 1],
@@ -9,7 +13,9 @@ input = {"data": [["app1", "title1", "content1", "category", 10000, 1],
                    ["app3", "title2", "content2", "category", 10000, 3]]}
 
 def test_model():
-    res = requests.post(url, data=json.dumps(input, ensure_ascii=False))
+    # res = requests.post(url, data=json.dumps(input, ensure_ascii=False))
+
+    res = client.post("/", json=input)
     assert res.status_code == 200
     #assert res.text == '"[2, 3, 1]"'
     assert re.search("^\"\\[[0-9, ]+\\]\"$", res.text) is not None

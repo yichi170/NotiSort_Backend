@@ -33,7 +33,7 @@ jobs:
     - name: Test with pytest
       run: |
         cd model/
-        pip install pytest requests
+        pip install pytest requests "fastapi[all]"
         py.test
         
   cd:

@@ -22,10 +22,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Run the docker compose
+    - name: Run the docker compose & Test
       run: |
         cd model/
         docker-compose up -d
+        chmod +x test.sh
+        ./test.sh
     # - name: Install Python 3.8
     #   uses: actions/setup-python@v2
     #   with:

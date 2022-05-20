@@ -17,4 +17,7 @@
 # MacOS
 *.DS_Store
 
+# Python
+*__pycache__/
+
 *intnoti-cc829-firebase-adminsdk-4abey-00f37cb945.json

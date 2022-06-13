@@ -6,3 +6,5 @@ tensorflow==2.9.0
 transformers==4.19.2
 uvicorn==0.17.6
 torch
+torchshard
+pytorch-lightning

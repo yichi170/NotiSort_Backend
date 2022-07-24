@@ -40,14 +40,14 @@ class Query:
 
     @strawberry.field
     def notification(self, user_id: Optional[str] = None) -> List[Notification]:
-        # users_ref = db.collection(u'notification')
-        # docs = users_ref.stream()
-        # res = [Notification(**doc.to_dict()) for doc in docs]
+        users_ref = db.collection(u'notification_test')
+        docs = users_ref.stream()
+        res = [Notification(**doc.to_dict()) for doc in docs]
 
-        if user_id is None:
-            res = [Notification(**doc) for doc in notification_list]
-        else:
-            res = [Notification(**doc) for doc in notification_list if doc["user_id"]==user_id]
+        # if user_id is None:
+        #     res = [Notification(**doc) for doc in notification_list]
+        # else:
+        #     res = [Notification(**doc) for doc in notification_list if doc["user_id"]==user_id]
 
         return res
         

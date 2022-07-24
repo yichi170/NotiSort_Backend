@@ -1,7 +1,9 @@
 import strawberry
-from typing import List, Any
+from firebase_admin import firestore
+from typing import List, Union
 
 from example import notification_list, behavior_list
+from firebase_db import db
 
 
 @strawberry.type
@@ -9,10 +11,6 @@ class Activity:
     user_id: str
     time: float
     activity_type: int
-
-def get_activity(root: Any) -> Activity:
-    return Activity(user_id=root.user_id, time=11111, activity_type=3)
-
 
 @strawberry.type
 class Diary:
@@ -62,7 +60,18 @@ class Notification:
     time_of_day: int
     user_id: str
 
-    activity: Activity = strawberry.field(resolver=get_activity)
+    @strawberry.field
+    def activity(self) -> Union[Activity, None]:
+        users_ref = db.collection(u'activity_recognition_test')
+        users_ref = users_ref.where(u'time', u'<=', self.post_time)
+        users_ref = users_ref.order_by(u'time', direction=firestore.Query.DESCENDING).limit(1)
+        docs = users_ref.stream()
+
+        for doc in docs:
+            doc = doc.to_dict()
+            if doc["user_id"] == self.user_id:
+                return Activity(**doc)
+
 
 @strawberry.type
 class Behavior:
@@ -83,11 +92,22 @@ class Behavior:
     time_of_day: int
     user_id: str
 
-    activity: Activity = strawberry.field(resolver=get_activity)
+    @strawberry.field
+    def activity(self) -> Union[Activity, None]:
+        users_ref = db.collection(u'activity_recognition_test')
+        users_ref = users_ref.where(u'time', u'<=', self.time)
+        users_ref = users_ref.order_by(u'time', direction=firestore.Query.DESCENDING).limit(1)
+        docs = users_ref.stream()
+
+        for doc in docs:
+            doc = doc.to_dict()
+            if doc["user_id"] == self.user_id:
+                return Activity(**doc)
 
     @strawberry.field
     def notification_info(self) -> List[Notification]:
-        noti_list = [Notification(**doc) for doc in notification_list]
-        return filter(lambda noti: noti.user_id==self.user_id and noti.notification_id==self.notification_id, noti_list)
-
-    
+        users_ref = db.collection(u'notification_test')
+        users_ref = users_ref.where(u'user_id', u'==', self.user_id).where(u'notification_id', u'==', self.notification_id)
+        docs = users_ref.stream()
+        res = [Notification(**doc.to_dict()) for doc in docs]
+        return res

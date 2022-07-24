@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 import strawberry
 from strawberry.fastapi import GraphQLRouter
-from typing import List
+from strawberry.schema.config import StrawberryConfig
+from typing import List, Optional
 
 from firebase_db import db
 from schema import Diary, Category, Notification, Behavior
-
+from example import notification_list, behavior_list
 
 @strawberry.type
 class Query:
@@ -24,21 +25,33 @@ class Query:
         return res
 
     @strawberry.field
-    def behavior(self) -> List[Behavior]:
-        users_ref = db.collection(u'behavior')
-        docs = users_ref.stream()
-        res = [Behavior(**doc.to_dict()) for doc in docs]
-        return res[:100]
+    def behavior(self, user_id: Optional[str] = None) -> List[Behavior]:
+        # users_ref = db.collection(u'behavior')
+        # docs = users_ref.stream()
+        # res = [Behavior(**doc.to_dict()) for doc in docs]
+
+        if user_id is None:
+            res = [Behavior(**doc) for doc in behavior_list]
+        else:
+            res = [Behavior(**doc) for doc in behavior_list if doc["user_id"]==user_id]
+
+        return res
 
     @strawberry.field
-    def notification(self) -> List[Notification]:
-        users_ref = db.collection(u'notification')
-        docs = users_ref.stream()
-        res = [Notification(**doc.to_dict()) for doc in docs]
-        return res[:100]
+    def notification(self, user_id: Optional[str] = None) -> List[Notification]:
+        # users_ref = db.collection(u'notification')
+        # docs = users_ref.stream()
+        # res = [Notification(**doc.to_dict()) for doc in docs]
+
+        if user_id is None:
+            res = [Notification(**doc) for doc in notification_list]
+        else:
+            res = [Notification(**doc) for doc in notification_list if doc["user_id"]==user_id]
+            
+        return res
         
         
-schema = strawberry.Schema(Query)
+schema = strawberry.Schema(query=Query, config=StrawberryConfig(auto_camel_case=False))
 graphql_app = GraphQLRouter(schema)
 
 app = FastAPI()

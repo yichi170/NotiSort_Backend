@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import uvicorn
 import strawberry
 from strawberry.fastapi import GraphQLRouter
 from strawberry.schema.config import StrawberryConfig
@@ -47,7 +48,7 @@ class Query:
             res = [Notification(**doc) for doc in notification_list]
         else:
             res = [Notification(**doc) for doc in notification_list if doc["user_id"]==user_id]
-            
+
         return res
         
         
@@ -56,3 +57,6 @@ graphql_app = GraphQLRouter(schema)
 
 app = FastAPI()
 app.include_router(graphql_app, prefix="/graphql")
+
+if __name__ == '__main__':
+    uvicorn.run(app, host="0.0.0.0", port=7777)

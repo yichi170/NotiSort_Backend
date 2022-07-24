@@ -63,8 +63,7 @@ class Notification:
     @strawberry.field
     def activity(self) -> Union[Activity, None]:
         users_ref = db.collection(u'activity_recognition_test')
-        users_ref = users_ref.where(u'time', u'<=', self.post_time)
-        users_ref = users_ref.order_by(u'time', direction=firestore.Query.DESCENDING).limit(1)
+        users_ref = users_ref.where(u'time', u'<=', self.post_time).order_by(u'time', direction=firestore.Query.DESCENDING)
         docs = users_ref.stream()
 
         for doc in docs:
@@ -95,8 +94,7 @@ class Behavior:
     @strawberry.field
     def activity(self) -> Union[Activity, None]:
         users_ref = db.collection(u'activity_recognition_test')
-        users_ref = users_ref.where(u'time', u'<=', self.time)
-        users_ref = users_ref.order_by(u'time', direction=firestore.Query.DESCENDING).limit(1)
+        users_ref = users_ref.where(u'time', u'<=', self.time).order_by(u'time', direction=firestore.Query.DESCENDING)
         docs = users_ref.stream()
 
         for doc in docs:

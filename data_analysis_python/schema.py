@@ -2,7 +2,6 @@ import strawberry
 from firebase_admin import firestore
 from typing import List, Union
 
-from example import notification_list, behavior_list
 from firebase_db import db
 
 
@@ -11,6 +10,30 @@ class Activity:
     user_id: str
     time: float
     activity_type: int
+
+
+@strawberry.type
+class RECENT_USE:
+    user_id: str
+    time: float
+    action: str
+
+    @strawberry.field
+    def activity(self) -> Union[Activity, None]:
+        users_ref = db.collection(u'activity_recognition_test')
+        users_ref = users_ref.where(u'time', u'<=', self.time).order_by(u'time', direction=firestore.Query.DESCENDING)
+        docs = users_ref.stream()
+
+        for doc in docs:
+            doc = doc.to_dict()
+            if doc["user_id"] == self.user_id:
+                return Activity(**doc)
+
+
+@strawberry.type
+class ESM:
+    user_id: str
+
 
 @strawberry.type
 class Diary:
@@ -21,6 +44,7 @@ class Diary:
     EsmQ4: str
     EsmQ5: str
     EsmQ6: str
+
 
 @strawberry.type
 class Category:
@@ -39,6 +63,18 @@ class Category:
     time: float
     time_of_day: int
     user_id: str
+
+    @strawberry.field
+    def activity(self) -> Union[Activity, None]:
+        users_ref = db.collection(u'activity_recognition_test')
+        users_ref = users_ref.where(u'time', u'<=', self.time).order_by(u'time', direction=firestore.Query.DESCENDING)
+        docs = users_ref.stream()
+
+        for doc in docs:
+            doc = doc.to_dict()
+            if doc["user_id"] == self.user_id:
+                return Activity(**doc)
+
 
 @strawberry.type
 class Notification:

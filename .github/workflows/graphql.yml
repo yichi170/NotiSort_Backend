@@ -25,6 +25,10 @@ jobs:
 
     - name: Install Python 3.8
       uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    
+    - name: Pytest
       run: |
         cd graphql/
         pip install -r requirements.txt

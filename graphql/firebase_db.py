@@ -2,12 +2,11 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from dotenv import load_dotenv
-import json
 import os
 
 load_dotenv()
 
-config = {
+cred = credentials.Certificate({
   "type": os.environ.get("type").replace('\\n', '\n'),
   "project_id": os.environ.get("project_id").replace('\\n', '\n'),
   "private_key_id": os.environ.get("private_key_id").replace('\\n', '\n'),
@@ -18,11 +17,7 @@ config = {
   "token_uri": os.environ.get("token_uri").replace('\\n', '\n'),
   "auth_provider_x509_cert_url": os.environ.get("auth_provider_x509_cert_url").replace('\\n', '\n'),
   "client_x509_cert_url": os.environ.get("client_x509_cert_url").replace('\\n', '\n')
-}
+})
 
-with open('config.json', 'w') as fp:
-    json.dump(config, fp)
-
-cred = credentials.Certificate('./config.json')
 firebase_admin.initialize_app(cred)
 db = firestore.client()

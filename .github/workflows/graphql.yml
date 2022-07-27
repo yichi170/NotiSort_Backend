@@ -33,7 +33,7 @@ jobs:
         cd graphql/
         pip install -r requirements.txt
         pip install pytest
-        pytest
+        pytest -v
       env:
         type: ${{ secrets.TYPE }}
         project_id: ${{ secrets.PROJECT_ID }}

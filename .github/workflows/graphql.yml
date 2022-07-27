@@ -29,6 +29,11 @@ jobs:
         python-version: 3.8
     
     - name: Pytest
+      run: |
+        cd graphql/
+        pip install -r requirements.txt
+        pip install pytest
+        pytest
       env:
         type: ${{ secrets.TYPE }}
         project_id: ${{ secrets.PROJECT_ID }}
@@ -40,8 +45,3 @@ jobs:
         token_uri: ${{ secrets.TOKEN_URI }}
         auth_provider_x509_cert_url: ${{ secrets.AUTH_PROVIDER_X509_CERT_URL }}
         client_x509_cert_url: ${{ secrets.CLIENT_X509_CERT_URL }}
-      run: |
-        cd graphql/
-        pip install -r requirements.txt
-        pip install pytest
-        pytest

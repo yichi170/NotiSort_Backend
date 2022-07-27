@@ -29,7 +29,7 @@ jobs:
         python-version: 3.8
     
     - name: Pytest
-     env:
+      env:
         type: ${{ secrets.TYPE }}
         project_id: ${{ secrets.PROJECT_ID }}
         private_key_id: ${{ secrets.PRIVATE_KEY_ID }}

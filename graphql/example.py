@@ -1,6 +1,8 @@
-behavior_list = [
-    {
-        "notification_id": 12345,
+collections = ["behavior", "notification", "activity_recognition", "recent_use", "ESM", "diary", "category"]
+
+data = {
+	"behavior_1": {
+		"notification_id": 12345,
 		"user_id": "77",
 		"time" : 10000, 
 		"action": "onPin", 
@@ -16,9 +18,9 @@ behavior_list = [
 		"call_state": "Idle",
 		"day_of_week": 5,
 		"time_of_day": 5,
-    },
-    {
-        "notification_id": 67890,
+	},
+	"behavior_2": {
+		"notification_id": 67890,
 		"user_id": "88",
 		"time" : 15000, 
 		"action": "onPin", 
@@ -34,12 +36,9 @@ behavior_list = [
 		"call_state": "Idle",
 		"day_of_week": 5,
 		"time_of_day": 5,
-    },
-]
-
-notification_list = [
-    {
-        "user_id": "77",
+	},
+	"notification_1": {
+		"user_id": "77",
 		"notification_id": 12345,
 		"app_name": "12345_instagram", 
 		"app_title": "XXX", 
@@ -56,9 +55,9 @@ notification_list = [
 		"call_state": "Idle",
 		"day_of_week": 7,
 		"time_of_day": 5,
-    },
-    {
-        "user_id": "88",
+	},
+	"notification_2": {
+		"user_id": "88",
 		"notification_id": 67890,
 		"app_name": "67890_instagram", 
 		"app_title": "XXX", 
@@ -75,56 +74,54 @@ notification_list = [
 		"call_state": "Idle",
 		"day_of_week": 7,
 		"time_of_day": 5,
-    },
-]
-
-activity_list = [
-	{
-		"user_id": "88",
-		"time": 9000,
-		"activity_type": 7,
 	},
-	{
-		"user_id": "77",
-		"time": 15000,
-		"activity_type": 3,
-	},
-	{
-		"user_id": "88",
-		"time": 20001,
-		"activity_type": 3,
-	},
-	{
+	"activity_recognition_1":{
 		"user_id": "77",
 		"time": 5000,
 		"activity_type": 7,
 	},
-]
-
-recent_use_list = [
-	{
+	"activity_recognition_2":{
+		"user_id": "77",
+		"time": 9999,
+		"activity_type": 7,
+	},
+	"activity_recognition_3":{
+		"user_id": "77",
+		"time": 10001,
+		"activity_type": 7,
+	},
+	"activity_recognition_4":{
+		"user_id": "88",
+		"time": 9000,
+		"activity_type": 7,
+	},
+	"activity_recognition_5":{
+		"user_id": "88",
+		"time": 14999,
+		"activity_type": 7,
+	},
+	"activity_recognition_6":{
+		"user_id": "88",
+		"time": 15001,
+		"activity_type": 7,
+	},
+	"recent_use_1": {
 		"user_id": "77",
 		"time": 6000,
 		"action": "open",
 	},
-	{
+	"recent_use_2": {
 		"user_id": "88",
 		"time": 3000,
 		"action": "close",
 	},
-]
-
-ESM_list = [
-	{
+	"ESM_1": {
 		"user_id": "77",
 	},
-	{
+	"ESM_2": {
 		"user_id": "88",
 	},
-]
-
-diary_list = [
-	{
+	"diary_1": {
 		"user_id": "77",
 		"EsmQ1": "11",
 		"EsmQ2": "22",
@@ -133,7 +130,7 @@ diary_list = [
 		"EsmQ5": "55",
 		"EsmQ6": "66",
 	},
-	{
+	"diary_2": {
 		"user_id": "88",
 		"EsmQ1": "111",
 		"EsmQ2": "222",
@@ -142,10 +139,7 @@ diary_list = [
 		"EsmQ5": "555",
 		"EsmQ6": "666",
 	},
-]
-
-category_list = [
-	{
+	"category_1": {
 		"user_id": "77",
 		"time" : 10000, 
 		"action": "clickCategory", 
@@ -161,8 +155,8 @@ category_list = [
 		"call_state": "Idle",
 		"day_of_week": 5,
 		"time_of_day": 5,
-    },
-	{
+	},
+	"category_2": {
 		"user_id": "88",
 		"time" : 15000, 
 		"action": "clickCategory", 
@@ -178,5 +172,5 @@ category_list = [
 		"call_state": "Idle",
 		"day_of_week": 5,
 		"time_of_day": 5,
-    },
-]
+	},
+}

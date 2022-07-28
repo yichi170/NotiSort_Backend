@@ -14,7 +14,7 @@ class Query:
 
     @strawberry.field
     def activity(self, user_id: Optional[str] = None) -> List[Activity]:
-        users_ref = db.collection(u'activity_recognition_test')
+        users_ref = db.collection(u'activity_recognition')
         docs = users_ref.stream()
 
         if user_id is None:
@@ -27,7 +27,7 @@ class Query:
 
     @strawberry.field
     def recent_use(self, user_id: Optional[str] = None) -> List[RECENT_USE]:
-        users_ref = db.collection(u'recent_use_test')
+        users_ref = db.collection(u'recent_use')
         docs = users_ref.stream()
 
         if user_id is None:
@@ -40,7 +40,7 @@ class Query:
 
     @strawberry.field
     def esm(self, user_id: Optional[str] = None) -> List[ESM]:
-        users_ref = db.collection(u'ESM_test')
+        users_ref = db.collection(u'ESM')
         docs = users_ref.stream()
 
         if user_id is None:
@@ -79,7 +79,7 @@ class Query:
 
     @strawberry.field
     def notification(self, user_id: Optional[str] = None) -> List[Notification]:
-        users_ref = db.collection(u'notification_test')
+        users_ref = db.collection(u'notification')
         docs = users_ref.stream()
 
         if user_id is None:
@@ -92,7 +92,7 @@ class Query:
 
     @strawberry.field
     def behavior(self, user_id: Optional[str] = None, mode: Optional[int] = None) -> List[Behavior]:
-        users_ref = db.collection(u'behavior_test')
+        users_ref = db.collection(u'behavior')
         docs = users_ref.stream()
 
         if user_id is None and mode is None:

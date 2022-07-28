@@ -20,7 +20,7 @@ class RECENT_USE:
 
     @strawberry.field
     def activity(self) -> Union[Activity, None]:
-        users_ref = db.collection(u'activity_recognition_test')
+        users_ref = db.collection(u'activity_recognition')
         users_ref = users_ref.where(u'time', u'<=', self.time).order_by(u'time', direction=firestore.Query.DESCENDING)
         docs = users_ref.stream()
 
@@ -66,7 +66,7 @@ class Category:
 
     @strawberry.field
     def activity(self) -> Union[Activity, None]:
-        users_ref = db.collection(u'activity_recognition_test')
+        users_ref = db.collection(u'activity_recognition')
         users_ref = users_ref.where(u'time', u'<=', self.time).order_by(u'time', direction=firestore.Query.DESCENDING)
         docs = users_ref.stream()
 
@@ -98,7 +98,7 @@ class Notification:
 
     @strawberry.field
     def activity(self) -> Union[Activity, None]:
-        users_ref = db.collection(u'activity_recognition_test')
+        users_ref = db.collection(u'activity_recognition')
         users_ref = users_ref.where(u'time', u'<=', self.post_time).order_by(u'time', direction=firestore.Query.DESCENDING)
         docs = users_ref.stream()
 
@@ -129,7 +129,7 @@ class Behavior:
 
     @strawberry.field
     def activity(self) -> Union[Activity, None]:
-        users_ref = db.collection(u'activity_recognition_test')
+        users_ref = db.collection(u'activity_recognition')
         users_ref = users_ref.where(u'time', u'<=', self.time).order_by(u'time', direction=firestore.Query.DESCENDING)
         docs = users_ref.stream()
 
@@ -140,7 +140,7 @@ class Behavior:
 
     @strawberry.field
     def notification_info(self) -> List[Notification]:
-        users_ref = db.collection(u'notification_test')
+        users_ref = db.collection(u'notification')
         users_ref = users_ref.where(u'user_id', u'==', self.user_id).where(u'notification_id', u'==', self.notification_id)
         docs = users_ref.stream()
         res = [Notification(**doc.to_dict()) for doc in docs]

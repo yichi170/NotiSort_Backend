@@ -13,7 +13,7 @@ services:
             - 443:443
         depends_on:
             - model
-            - graphql
+            - graphql_server
 
     model:    
         build: ./model
@@ -27,7 +27,7 @@ services:
         ports:
             - 5000:5000
 
-    graphql:    
+    graphql_server:    
         build: ./graphql
         container_name: graphql_container
         volumes:
@@ -35,7 +35,7 @@ services:
         networks:
             docker-network:
                 aliases:
-                    - graphql
+                    - graphql_server
         ports:
             - 8000:8000
         environment:

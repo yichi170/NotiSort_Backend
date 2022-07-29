@@ -78,13 +78,23 @@ jobs:
         os: [ubuntu-latest]
     steps:
     - name: Deploy project to Google Compute Engine
-      uses: appleboy/ssh-action@v0.1.4
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSHKEY }}
         envs: type,project_id,private_key_id,private_key,client_email,client_id,auth_uri,token_uri,auth_provider_x509_cert_url,client_x509_cert_url
         script: |
+          export type=$type
+          export project_id=$project_id
+          export private_key_id=$private_key_id
+          export private_key=$private_key
+          export client_email=$client_email
+          export client_id=$client_id
+          export auth_uri=$auth_uri
+          export token_uri=$token_uri
+          export auth_provider_x509_cert_url=$auth_provider_x509_cert_url
+          export client_x509_cert_url=$client_x509_cert_url
           cd NotiSort_Backend
           git pull https://github.com/yichi170/NotiSort_Backend.git
           docker-compose up --build -d

@@ -14,96 +14,90 @@ class Query:
 
     @strawberry.field
     def activity(self, user_id: Optional[str] = None) -> List[Activity]:
-        users_ref = db.collection(u'activity_recognition')
-        docs = users_ref.stream()
-
         if user_id is None:
-            res = [Activity(**doc.to_dict()) for doc in docs]
+            users_ref = db.collection(u'activity_recognition')
         else:
-            res = [Activity(**doc.to_dict()) for doc in docs if doc.to_dict()["user_id"]==user_id]
+            users_ref = db.collection(u'activity_recognition').where(u'user_id', u'==', user_id)
 
+        docs = users_ref.stream()
+        res = [Activity(**doc.to_dict()) for doc in docs]
         return res
 
 
     @strawberry.field
     def recent_use(self, user_id: Optional[str] = None) -> List[RECENT_USE]:
-        users_ref = db.collection(u'recent_use')
-        docs = users_ref.stream()
-
         if user_id is None:
-            res = [RECENT_USE(**doc.to_dict()) for doc in docs]
+            users_ref = db.collection(u'recent_use')
         else:
-            res = [RECENT_USE(**doc.to_dict()) for doc in docs if doc.to_dict()["user_id"]==user_id]
+            users_ref = db.collection(u'recent_use').where(u'user_id', u'==', user_id)
 
+        docs = users_ref.stream()
+        res = [RECENT_USE(**doc.to_dict()) for doc in docs]
         return res
 
 
     @strawberry.field
     def esm(self, user_id: Optional[str] = None) -> List[ESM]:
-        users_ref = db.collection(u'ESM')
-        docs = users_ref.stream()
-
         if user_id is None:
-            res = [ESM(**doc.to_dict()) for doc in docs]
+            users_ref = db.collection(u'ESM')
         else:
-            res = [ESM(**doc.to_dict()) for doc in docs if doc.to_dict()["user_id"]==user_id]
+            users_ref = db.collection(u'ESM').where(u'user_id', u'==', user_id)
 
+        docs = users_ref.stream()
+        res = [ESM(**doc.to_dict()) for doc in docs]
         return res
 
 
     @strawberry.field
     def diary(self, user_id: Optional[str] = None) -> List[Diary]:
-        users_ref = db.collection(u'diary')
-        docs = users_ref.stream()
-
         if user_id is None:
-            res = [Diary(**doc.to_dict()) for doc in docs]
+            users_ref = db.collection(u'diary')
         else:
-            res = [Diary(**doc.to_dict()) for doc in docs if doc.to_dict()["user_id"]==user_id]
+            users_ref = db.collection(u'diary').where(u'user_id', u'==', user_id)
 
+        docs = users_ref.stream()
+        res = [Diary(**doc.to_dict()) for doc in docs]
         return res
 
 
     @strawberry.field
     def category(self, user_id: Optional[str] = None) -> List[Category]:
-        users_ref = db.collection(u'category')
-        docs = users_ref.stream()
-
         if user_id is None:
-            res = [Category(**doc.to_dict()) for doc in docs]
+            users_ref = db.collection(u'category')
         else:
-            res = [Category(**doc.to_dict()) for doc in docs if doc.to_dict()["user_id"]==user_id]
+            users_ref = db.collection(u'category').where(u'user_id', u'==', user_id)
 
+        docs = users_ref.stream()
+        res = [Category(**doc.to_dict()) for doc in docs]
         return res
 
 
     @strawberry.field
     def notification(self, user_id: Optional[str] = None) -> List[Notification]:
-        users_ref = db.collection(u'notification')
-        docs = users_ref.stream()
-
         if user_id is None:
-            res = [Notification(**doc.to_dict()) for doc in docs]
+            users_ref = db.collection(u'notification')
         else:
-            res = [Notification(**doc.to_dict()) for doc in docs if doc.to_dict()["user_id"]==user_id]
+            users_ref = db.collection(u'notification').where(u'user_id', u'==', user_id)
 
+        docs = users_ref.stream()
+        res = [Notification(**doc.to_dict()) for doc in docs]
         return res
 
 
     @strawberry.field
     def behavior(self, user_id: Optional[str] = None, mode: Optional[int] = None) -> List[Behavior]:
-        users_ref = db.collection(u'behavior')
-        docs = users_ref.stream()
 
         if user_id is None and mode is None:
-            res = [Behavior(**doc.to_dict()) for doc in docs]
+            users_ref = db.collection(u'behavior')
         elif user_id is None and mode is not None:
-            res = [Behavior(**doc.to_dict()) for doc in docs if doc.to_dict()["mode"]==mode]
+            users_ref = db.collection(u'behavior').where(u'mode', u'==', mode)
         elif user_id is not None and mode is None:
-            res = [Behavior(**doc.to_dict()) for doc in docs if doc.to_dict()["user_id"]==user_id]
+            users_ref = db.collection(u'behavior').where(u'user_id', u'==', user_id)
         else:
-            res = [Behavior(**doc.to_dict()) for doc in docs if doc.to_dict()["user_id"]==user_id and doc.to_dict()["mode"]==mode]
+            users_ref = db.collection(u'behavior').where(u'mode', u'==', mode).where(u'user_id', u'==', user_id)
 
+        docs = users_ref.stream()
+        res = [Behavior(**doc.to_dict()) for doc in docs]
         return res
 
         

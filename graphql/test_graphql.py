@@ -206,8 +206,8 @@ def test_notification_query(test_data):
 
 def test_behavior_query(test_data):
     query = """
-        query TestQuery($user_id: String) {
-            behavior(user_id: $user_id) {              
+        query TestQuery($user_id: String, $mode: Int) {
+            behavior(user_id: $user_id, mode: $mode) {              
                 action
                 battery
                 call_state
@@ -258,7 +258,7 @@ def test_behavior_query(test_data):
     """
     result = schema.execute_sync(
         query,
-        variable_values={"user_id": "77"},
+        variable_values={"user_id": "77", "mode": 0},
     )
     
     assert result.errors is None

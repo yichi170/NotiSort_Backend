@@ -1,0 +1,43 @@
+version: "3.7"
+
+services:
+    nginx:
+        image: nginx:latest
+        container_name: nginx_container
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+        networks:
+            - docker-network
+        ports:
+            - "80:80"
+            - "443:443"
+        depends_on:
+            - model
+            - graphql
+
+    model:    
+        build: ./model
+        container_name: model_container
+        volumes:
+            - ./model:/model
+        networks:
+            docker-network:
+                aliases:
+                    - model
+        ports:
+            - 5000:5000
+
+    graphql:    
+        build: ./graphql
+        container_name: graphql_container
+        volumes:
+            - ./graphql:/graphql
+        networks:
+            docker-network:
+                aliases:
+                    - graphql
+        ports:
+            - 8000:8000
+
+networks:
+    docker-network:

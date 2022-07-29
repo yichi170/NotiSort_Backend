@@ -1,0 +1,77 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  Test_model:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Pytest
+      run: |
+        cd model
+        pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest requests "fastapi[all]"
+        pytest -v
+
+  Test_graphql:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Pytest
+      run: |
+        cd graphql
+        pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest
+        pytest -v
+
+  Build_docker:
+    needs: [Test_model, Test_graphql]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run docker-compose
+      run: |
+        docker-compose up --build -d
+        
+  Deploy:
+    needs: Build_docker
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    steps:
+    - name: Deploy project to Google Compute Engine
+      uses: appleboy/ssh-action@v0.1.4
+      with:
+        host: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        KEY: ${{ secrets.SSHKEY }}
+        script: |
+          cd NotiSort_Backend
+          git pull https://github.com/yichi170/NotiSort_Backend.git
+          docker-compose up --build -d

@@ -86,7 +86,6 @@ class Query:
 
     @strawberry.field
     def behavior(self, user_id: Optional[str] = None, mode: Optional[int] = None) -> List[Behavior]:
-
         if user_id is None and mode is None:
             users_ref = db.collection(u'behavior')
         elif user_id is None and mode is not None:
@@ -94,7 +93,7 @@ class Query:
         elif user_id is not None and mode is None:
             users_ref = db.collection(u'behavior').where(u'user_id', u'==', user_id)
         else:
-            users_ref = db.collection(u'behavior').where(u'mode', u'==', mode).where(u'user_id', u'==', user_id)
+            users_ref = db.collection(u'behavior').where(u'user_id', u'==', user_id).where(u'mode', u'==', mode)
 
         docs = users_ref.stream()
         res = [Behavior(**doc.to_dict()) for doc in docs]
@@ -108,4 +107,4 @@ app = FastAPI()
 app.include_router(graphql_app, prefix="/graphql")
 
 if __name__ == '__main__':
-    uvicorn.run(app, host="0.0.0.0", port=7777)
+    uvicorn.run(app, host="0.0.0.0", port=8000)

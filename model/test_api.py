@@ -1,9 +1,6 @@
-import requests
-import pytest
-import json
 import re
 from fastapi.testclient import TestClient
-from .server_fastapi import *
+from server_fastapi import *
 
 client = TestClient(app)
 

@@ -170,7 +170,6 @@ class NN(pl.LightningModule):
         return [optimizer], [scheduler]
 
 
-# android_tcp_connection:
 
 BUFSIZE = 8192 * 2
 HOST = '0.0.0.0'
@@ -179,16 +178,23 @@ PORT = 5000
 app = FastAPI()
 
 @app.post('/')
-async def upload_noti(json_noti: dict = Body(...)):
-    # json_noti = request.get_json()
+async def upload_noti(
+    json_noti: dict = Body(
+        examples={
+            "data": [["app1", "title1", "content1", "category", 10000, 1], 
+                     ["app2", "title2", "content2", "category", 10000, 2], 
+                     ["app3", "title2", "content3", "category", 10000, 3],
+                     ["app4", "title4", "content4", "category", 10000, 4]]
+        }
+    )
+):
     data = json_noti['data']
     start_time = time.time()
-    result = model.sort_notis(
-        data, en_tokenizer, en_model, zh_tokenizer, zh_model)
+    result = model.sort_notis(data, en_tokenizer, en_model, zh_tokenizer, zh_model)
+
     end_time = time.time()
     print(f'{end_time - start_time:.5f} seconds')
-    #sorted_index = [ele[0] for ele in result]
-    #sorted_notifications = [data[ele[0]] for ele in result]
+
     message_to_app = json.dumps(result,ensure_ascii=False) #10 第十個放在第一個
     del json_noti
     del data
@@ -197,7 +203,6 @@ async def upload_noti(json_noti: dict = Body(...)):
     gc.collect()
     return message_to_app
     
-# running web app in local machine
 
 print("Num GPUs Available: ", len(tensorflow.config.list_physical_devices('GPU')))
 en_tokenizer = AutoTokenizer.from_pretrained(

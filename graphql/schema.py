@@ -33,6 +33,48 @@ class RECENT_USE:
 @strawberry.type
 class ESM:
     user_id: str
+    survey_finish_time: float
+    mode: int
+    esm_context_q1: str
+    esm_context_q2: str
+    esm_context_q3: str
+    esm_context_q4: str
+    esm_context_q5: str
+    pin_esm_notification_appname: str
+    pin_esm_notification_title: str
+    pin_esm_notification_content: str
+    pin_esm_notification_posttime: str
+    esm_category_name: str
+    esm_pin_q1: str
+    esm_pin_q2: str
+    esm_pin_q3: str
+    esm_pin_q4: str
+    esm_pin_q5: str
+    esm_pin_q6: str
+    drag_esm_notification_content: str
+    drag_esm_notification_appname: str
+    drag_esm_notification_posttime: str
+    drag_esm_notification_title: str
+    esm_drag_q1: str
+    esm_drag_q2: str
+    esm_drag_q3: str
+    esm_drag_q4: str
+    esm_drag_q5: str
+    esm_drag_q6: str
+    esm_category_name: str
+    esm_category_q1: str
+    esm_auto_compare_original_noti_content: List[str]
+    esm_auto_compare_original_noti_appname: List[str]
+    esm_auto_compare_original_noti_posttime: List[str]
+    esm_auto_compare_original_noti_title: List[str]
+    esm_auto_compare_sort_noti_content: List[str]
+    esm_auto_compare_sort_noti_appname: List[str]
+    esm_auto_compare_sort_noti_posttime: List[str]
+    esm_auto_compare_sort_noti_title: List[str]
+    esm_auto_compare_q1: str
+    esm_auto_compare_q2: str
+    esm_auto_compare_q3: str
+    esm_auto_compare_q4: str
 
 
 @strawberry.type

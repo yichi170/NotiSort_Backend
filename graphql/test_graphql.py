@@ -29,17 +29,59 @@ def test_esm_query(test_data):
         query TestQuery($user_id: String) {
             esm(user_id: $user_id) {
                 user_id
+                survey_finish_time
+                mode
+                esm_context_q1
+                esm_context_q2
+                esm_context_q3
+                esm_context_q4
+                esm_context_q5
+                pin_esm_notification_appname
+                pin_esm_notification_title
+                pin_esm_notification_content
+                pin_esm_notification_posttime
+                esm_category_name
+                esm_pin_q1
+                esm_pin_q2
+                esm_pin_q3
+                esm_pin_q4
+                esm_pin_q5
+                esm_pin_q6
+                drag_esm_notification_content
+                drag_esm_notification_appname
+                drag_esm_notification_posttime
+                drag_esm_notification_title
+                esm_drag_q1
+                esm_drag_q2
+                esm_drag_q3
+                esm_drag_q4
+                esm_drag_q5
+                esm_drag_q6
+                esm_category_name
+                esm_category_q1
+                esm_auto_compare_original_noti_content
+                esm_auto_compare_original_noti_appname
+                esm_auto_compare_original_noti_posttime
+                esm_auto_compare_original_noti_title
+                esm_auto_compare_sort_noti_content
+                esm_auto_compare_sort_noti_appname
+                esm_auto_compare_sort_noti_posttime
+                esm_auto_compare_sort_noti_title
+                esm_auto_compare_q1
+                esm_auto_compare_q2
+                esm_auto_compare_q3
+                esm_auto_compare_q4
             }
         }
     """
     result = schema.execute_sync(
         query,
-        variable_values={"user_id": "88"},
+        variable_values={"user_id": "77"},
     )
     
     assert result.errors is None
     assert result.data["esm"] == [
-        data['ESM_2']
+        data['ESM_1']
     ]
 
 

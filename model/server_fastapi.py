@@ -191,7 +191,6 @@ async def upload_noti(
     data = json_noti['data']
     start_time = time.time()
     result = model.sort_notis(data, en_tokenizer, en_model, zh_tokenizer, zh_model)
-
     end_time = time.time()
     print(f'{end_time - start_time:.5f} seconds')
 

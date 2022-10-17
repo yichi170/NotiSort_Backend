@@ -181,10 +181,17 @@ app = FastAPI()
 async def upload_noti(
     json_noti: dict = Body(
         example={
-            "data": [["app1", "title1", "content1", "category", 10000, 1], 
-                     ["app2", "title2", "content2", "category", 10000, 2], 
-                     ["app3", "title2", "content3", "category", 10000, 3],
-                     ["app4", "title4", "content4", "category", 10000, 4]]
+            "data": [
+                ["app1", "title1", "content1",
+                 "category", "STILL", "WEEKDAY",
+                 "MIDNIGHT", 10000, 1], 
+                ["app2", "title2", "content2",
+                 "category", "STILL", "WEEKDAY",
+                 "MIDNIGHT", 10000, 2], 
+                ["app3", "title3", "content3",
+                 "category", "STILL", "WEEKDAY",
+                 "MIDNIGHT", 10000, 3]
+            ]
         }
     )
 ):

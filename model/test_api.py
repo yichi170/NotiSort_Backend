@@ -11,7 +11,7 @@ input = {"data": [["app1", "title1", "content1",
                    "category2", "STILL", "WEEKDAY",
                    "MIDNIGHT", 10000, 2],
                   ["app3", "title3", "content3",
-                   "category3", "STILL", "WEEKDAY"
+                   "category3", "STILL", "WEEKDAY",
                    "MIDNIGHT", 10000, 3]]}
 
 def test_model():

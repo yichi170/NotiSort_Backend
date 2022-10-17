@@ -59,7 +59,7 @@ jobs:
         pytest -v
 
   Build_docker:
-    needs: [Test_model, Test_graphql]
+    needs: [Test_model]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:

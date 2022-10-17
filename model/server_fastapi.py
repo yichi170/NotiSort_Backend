@@ -26,7 +26,7 @@ class NN_Indiv(pl.LightningModule):
     def __init__(self, dropout, lr):
         super().__init__()
         self.fc = nn.Sequential(
-            ts.nn.ParallelLinear(3072, 192),
+            ts.nn.ParallelLinear(5376, 192),
             nn.GELU(),
             nn.BatchNorm1d(192),
             nn.Dropout(dropout),
@@ -117,7 +117,7 @@ class NN(pl.LightningModule):
     
     def sort_notis(self, data,
                    en_tokenizer, en_model, zh_tokenizer, zh_model, output_log=True, output_prob=False):
-        idx = [0, 3, 1, 2]
+        idx = [0, 3, 1, 2, 4, 5, 6]
         text = [[row[i] for i in idx] for row in data]
         noti_id = [row[-1] for row in data]
         with torch.no_grad():
